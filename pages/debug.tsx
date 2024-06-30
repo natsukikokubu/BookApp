@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import { getApiBaseUrl } from "@/utils/getApiBaseUrl";
 
 type ServerProps = {
   name: string;
@@ -7,12 +8,8 @@ type ServerProps = {
 export const getServerSideProps: GetServerSideProps<ServerProps> = async ({
   req,
 }) => {
-  const host = req.headers.host || "localhost:3000";
-  const protocol = /^localhost/.test(host) ? "http" : "https";
-  console.log(req.headers);
-  const data = await fetch(`${protocol}://${host}/api/hello`).then((data) =>
-    data.json()
-  );
+  const apiBaseUrl = getApiBaseUrl(req);
+  const data = await fetch(`${apiBaseUrl}/hello`).then((data) => data.json());
 
   return {
     props: data,
