@@ -7,9 +7,8 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     const data = await supabase.from("books").select("*");
-    console.log(data);
 
-    res.status(200).json({ data });
+    res.status(200).json(data);
   } else {
     res.setHeader("Allow", ["GET"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
