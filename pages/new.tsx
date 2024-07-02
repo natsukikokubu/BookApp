@@ -1,14 +1,24 @@
 import { Button } from "@/components";
 import { format } from "path";
 import { FormEvent } from "react";
+import { useState } from "react";
 
 export default function New() {
+  const [hasError, setHasError] = useState<boolean>(false);
+  console.log(hasError);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.target as HTMLFormElement);
     const title = form.get("title");
     const summary = form.get("summary");
     const comment = form.get("comment");
+
+    if (!title || !summary || !comment) {
+      setHasError(true);
+      return;
+    }
+    setHasError(false);
 
     console.log({ title, summary, comment });
   };
@@ -41,6 +51,9 @@ export default function New() {
         <Button size="md" type="submit">
           保存
         </Button>
+        {hasError && (
+          <p className="text-red-600 pt-2">全ての項目を入力してください</p>
+        )}
       </form>
     </main>
   );
