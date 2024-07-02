@@ -2,6 +2,7 @@ import { getApiBaseUrl } from "@/utils/getApiBaseUrl";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Book } from "@/types/book";
 import { Button } from "@/components/button";
+import { useRouter } from "next/router";
 
 type ServerProps = {
   books: Book[];
@@ -21,13 +22,17 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async ({
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export default function Home(props: Props) {
-  console.log(props.books);
+  const router = useRouter();
+  const handleClickNewButton = () => {
+    router.push("/new");
+  };
+
   return (
     <main className="py-4 px-8">
       <h1 className="text-4xl font-bold">Book App</h1>
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">本の一覧</h2>
-        <Button size="lg" onClick={() => console.log("clicked")}>
+        <Button size="lg" onClick={handleClickNewButton}>
           本の追加
         </Button>
       </div>
