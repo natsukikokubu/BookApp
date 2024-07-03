@@ -1,13 +1,16 @@
 import { Button } from "@/components";
+import { redirect } from "next/dist/server/api-utils";
 import { format } from "path";
 import { FormEvent } from "react";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function New() {
+  const router = useRouter();
   const [hasError, setHasError] = useState<boolean>(false);
   console.log(hasError);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.target as HTMLFormElement);
     const title = form.get("title");
@@ -20,7 +23,21 @@ export default function New() {
     }
     setHasError(false);
 
-    console.log({ title, summary, comment });
+    await fetch("/api/books", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        title,
+        summary,
+        comment,
+      }),
+    }).then(() => {
+      router.push("/");
+    });
   };
   return (
     <main className="py-4 px-8">
