@@ -45,6 +45,14 @@ export default function Home(props: Props) {
             <h3 className="text-lg font-bold mb-2">{book.title}</h3>
             <p className="mb-2">{book.summary}</p>
             <p>{book.created_at}</p>
+            <div className="flex gap-4 justify-end">
+              <a className="text-gray-700 underline hover:text-blue-700 cursor-pointer">
+                編集
+              </a>
+              <button className="text-gray-700 hover:text-red-700 underline">
+                削除
+              </button>
+            </div>
           </div>
         ))}
       </div>
