@@ -6,7 +6,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const data = await supabase.from("books").select("*");
+    const data = await supabase
+      .from("books")
+      .select("*")
+      .order("created_at", { ascending: true });
 
     res.status(200).json(data);
   } else if (req.method === "POST") {
