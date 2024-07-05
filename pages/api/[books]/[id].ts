@@ -19,6 +19,19 @@ export default async function handler(
     } else {
       res.status(404).json({ message: "Not Found" });
     }
+  } else if (req.method === "PUT") {
+    const { title, summary, comment } = req.body;
+
+    await supabase
+      .from("books")
+      .update({
+        title,
+        summary,
+        comment,
+      })
+      .eq("id", req.query.id);
+
+    res.status(200).json({ message: "Updated" });
   } else {
     res.status(405).json({ message: "Not Found" });
   }
