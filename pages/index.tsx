@@ -3,6 +3,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Book } from "@/types/book";
 import { Button } from "@/components/button";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 type ServerProps = {
   books: Book[];
@@ -23,8 +24,22 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export default function Home(props: Props) {
   const router = useRouter();
+  const [deleted, setDeleted] = useState<boolean>(false);
   const handleClickNewButton = () => {
     router.push("/new");
+  };
+
+  //何のデータを削除するのかがわからないといけないためにidを引数にとる
+  const handleClickDeleteButton = async (id: number) => {
+    await fetch(`/api/books/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    }).then(() => {
+      setDeleted(true);
+      router.replace(router.asPath);
+    });
   };
 
   return (
@@ -37,10 +52,17 @@ export default function Home(props: Props) {
         </Button>
       </div>
       <div className="p-8 flex flex-wrap gap-4">
+        {deleted && (
+          <div className="w-full bg-green-200 p-4 rounded-lg mb-4">
+            削除しました
+          </div>
+        )}
+      </div>
+      <div className="p-8 flex flex-wrap gap-4">
         {props.books.map((book) => (
           <div
             key={book.id}
-            className="w-[30%] border border-gray-600 rounded-lg p-4"
+            className="lg:w-[30%] w-full  border border-gray-600 rounded-lg p-4"
           >
             <h3 className="text-lg font-bold mb-2">{book.title}</h3>
             <p className="mb-2">{book.summary}</p>
@@ -52,7 +74,10 @@ export default function Home(props: Props) {
               >
                 編集
               </a>
-              <button className="text-gray-700 hover:text-red-700 underline">
+              <button
+                onClick={() => handleClickDeleteButton(book.id)}
+                className="text-gray-700 hover:text-red-700 underline"
+              >
                 削除
               </button>
             </div>

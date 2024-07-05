@@ -63,7 +63,7 @@ export default function Edit({ book }: Props) {
       <h1 className="text-4xl font-bold">Book App</h1>
       <h2 className="text-2xl font-bold">本の編集</h2>
       <form onSubmit={handleSubmit} className="flex flex-col items-center ">
-        <div className="py-4 w-1/2">
+        <div className="py-4 lg:w-1/2 w-full">
           <label htmlFor="title">タイトル</label>
           <input
             name="title"
@@ -71,20 +71,20 @@ export default function Edit({ book }: Props) {
             className="block border border-gray-600 rounded-md w-full p-2"
           />
         </div>
-        <div className="py-4 w-1/2">
+        <div className="py-4 lg:w-1/2 w-full">
           <label htmlFor="summary">あらすじ</label>
           <textarea
             name="summary"
             defaultValue={book.summary}
-            className="block border border-gray-600 rounded-md w-full h-40 p-2"
+            className="block border border-gray-600 rounded-md w-full h-60  p-2"
           />
         </div>
-        <div className="py-4 w-1/2">
+        <div className="py-4 lg:w-1/2 w-full">
           <label htmlFor="comment">感想</label>
           <textarea
             name="comment"
             defaultValue={book.comment}
-            className="block border border-gray-600 rounded-md w-full h-40 p-2"
+            className="block border border-gray-600 rounded-md w-full h-60 p-2"
           />
         </div>
         <Button size="md" type="submit">

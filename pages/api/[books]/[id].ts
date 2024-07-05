@@ -32,6 +32,10 @@ export default async function handler(
       .eq("id", req.query.id);
 
     res.status(200).json({ message: "Updated" });
+  } else if (req.method === "DELETE") {
+    await supabase.from("books").delete().eq("id", req.query.id);
+
+    res.status(200).json({ message: "Deleted" });
   } else {
     res.status(405).json({ message: "Not Found" });
   }
