@@ -44,25 +44,25 @@ export default function New() {
       <h1 className="text-4xl font-bold">BookApp</h1>
       <h2 className="text-2xl font-bold">本の追加</h2>
       <form onSubmit={handleSubmit} className="flex flex-col items-center ">
-        <div className="py-4 w-1/2">
+        <div className="py-4 lg:w-1/2 w-full">
           <label htmlFor="title">タイトル</label>
           <input
             name="title"
             className="block border border-gray-600 rounded-md w-full p-2"
           />
         </div>
-        <div className="py-4 w-1/2">
+        <div className="py-4 lg:w-1/2 w-full">
           <label htmlFor="summary">あらすじ</label>
           <textarea
             name="summary"
-            className="block border border-gray-600 rounded-md w-full h-40 p-2"
+            className="block border border-gray-600 rounded-md w-full h-60 p-2"
           />
         </div>
-        <div className="py-4 w-1/2">
+        <div className="py-4 lg:w-1/2 w-full">
           <label htmlFor="comment">感想</label>
           <textarea
             name="comment"
-            className="block border border-gray-600 rounded-md w-full h-40 p-2"
+            className="block border border-gray-600 rounded-md w-full h-60 p-2"
           />
         </div>
         <Button size="md" type="submit">
